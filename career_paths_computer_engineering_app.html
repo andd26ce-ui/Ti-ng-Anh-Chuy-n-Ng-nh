@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Paths: Computer Engineering - Study Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0b0f19',
+                            card: '#131b2e',
+                            border: '#1e293b',
+                            cyan: '#06b6d4',
+                            blue: '#3b82f6',
+                            purple: '#a855f7',
+                            emerald: '#10b981',
+                            accent: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- React & Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        /* 3D Flashcard Flip Animation */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Glow effects */
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+        }
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+        }
+        
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(19, 27, 46, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 selection:bg-cyan-500 selection:text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const VOCABULARY_DATA = [
+            // ================= BOOK 1: BASICS =================
+            {
+                id: 'b1-u1-1', book: 1, unit: 1, unitTitle: 'Computer Systems & Hardware',
+                term: 'Motherboard', phonetic: '/ˈmʌðərbɔːrd/', type: 'noun',
+                definition: 'The main printed circuit board containing the primary components of a computer system.',
+                vietnamese: 'Bo mạch chủ',
+                explanation: 'Bảng mạch in chính chứa CPU, bộ nhớ và các khe cắm mở rộng của máy tính.',
+                example: 'The motherboards circuit traces connect the CPU directly to the system RAM.',
+                notes: 'Thường được gọi ngắn gọn là Mobo.'
+            },
+            {
+                id: 'b1-u1-2', book: 1, unit: 1, unitTitle: 'Computer Systems & Hardware',
+                term: 'Central Processing Unit (CPU)', phonetic: '/ˈsentrəl ˈprɑːsesɪŋ ˈjuːnɪt/', type: 'noun',
+                definition: 'The primary electronic circuit that executes instructions constituting a computer program.',
+                vietnamese: 'Bộ xử lý trung tâm (CPU)',
+                explanation: 'Bộ não của máy tính, thực hiện các phép tính số học, logic và điều khiển hệ thống.',
+                example: 'Modern CPUs feature multiple cores capable of parallel execution.',
+                notes: 'Được đo bằng tốc độ xung nhịp (GHz) và số nhân (Cores).'
+            },
+            {
+                id: 'b1-u1-3', book: 1, unit: 1, unitTitle: 'Computer Systems & Hardware',
+                term: 'RAM (Random Access Memory)', phonetic: '/ræm/', type: 'noun',
+                definition: 'A form of volatile computer memory that can be read and changed in any order.',
+                vietnamese: 'Bộ nhớ truy cập ngẫu nhiên (RAM)',
+                explanation: 'Bộ nhớ tạm thời chứa dữ liệu đang được hệ điều hành và phần mềm sử dụng.',
+                example: 'Upgrading RAM allows the system to run complex applications smoothly.',
+                notes: 'Dữ liệu trong RAM sẽ bị mất hoàn toàn khi tắt máy (Volatile).'
+            },
+            {
+                id: 'b1-u2-1', book: 1, unit: 2, unitTitle: 'Operating Systems',
+                term: 'Kernel', phonetic: '/ˈkɜːrnl/', type: 'noun',
+                definition: 'The core component of an operating system that manages system resources and hardware communication.',
+                vietnamese: 'Nhân hệ điều hành',
+                explanation: 'Thành phần lõi của OS đóng vai trò cầu nối giữa phần cứng và ứng dụng phần mềm.',
+                example: 'The OS kernel allocates memory space and manages CPU scheduling for all processes.',
+                notes: 'Ví dụ: Linux Kernel, Windows NT Kernel.'
+            },
+            {
+                id: 'b1-u2-2', book: 1, unit: 2, unitTitle: 'Operating Systems',
+                term: 'Graphical User Interface (GUI)', phonetic: '/ˈɡræfɪkl ˈjuːzər ˈɪntərfeɪs/', type: 'noun',
+                definition: 'A visual way of interacting with a computer using items such as windows, icons, and menus.',
+                vietnamese: 'Giao diện người dùng đồ họa (GUI)',
+                explanation: 'Giao diện trực quan giúp người dùng tương tác bằng chuột/cảm ứng thay vì gõ lệnh.',
+                example: 'The introduction of GUI made operating computers accessible to non-technical users.',
+                notes: 'Trái ngược với CLI (Command Line Interface).'
+            },
+            {
+                id: 'b1-u3-1', book: 1, unit: 3, unitTitle: 'Software & Applications',
+                term: 'Firmware', phonetic: '/ˈfɜːrmwer/', type: 'noun',
+                definition: 'Permanent software programmed into a read-only memory component of a hardware device.',
+                vietnamese: 'Phần mềm điều khiển (Firmware)',
+                explanation: 'Chương trình cố định nạp sẵn trong phần cứng để quản lý các chức năng cấp thấp.',
+                example: 'The BIOS or UEFI is a crucial piece of firmware on the motherboard.',
+                notes: 'Lưu trữ trong ROM hoặc Flash Memory.'
+            },
+            {
+                id: 'b1-u4-1', book: 1, unit: 4, unitTitle: 'Data Storage',
+                term: 'Solid State Drive (SSD)', phonetic: '/ˈsɑːlɪd steɪt draɪv/', type: 'noun',
+                definition: 'A solid-state storage device that uses integrated circuit assemblies to store data persistently.',
+                vietnamese: 'Ổ cứng thể rắn (SSD)',
+                explanation: 'Thiết bị lưu trữ dữ liệu không có bộ phận cơ học di động, sử dụng bộ nhớ Flash.',
+                example: 'SSDs offer faster read and write speeds compared to traditional HDDs.',
+                notes: 'Sử dụng chip NAND Flash.'
+            },
+            {
+                id: 'b1-u5-1', book: 1, unit: 5, unitTitle: 'Input & Output Devices',
+                term: 'Peripheral', phonetic: '/pəˈrɪfərəl/', type: 'noun',
+                definition: 'An auxiliary device used to enter information into and retrieve information from a computer.',
+                vietnamese: 'Thiết bị ngoại vi',
+                explanation: 'Các thiết bị cắm ngoài như bàn phím, chuột, máy in, máy quét.',
+                example: 'Keyboards, mice, and external monitors are standard computer peripherals.',
+                notes: 'Phân loại gồm Input, Output, và Storage peripheral.'
+            },
+            {
+                id: 'b1-u6-1', book: 1, unit: 6, unitTitle: 'Binary & Data Representation',
+                term: 'Hexadecimal', phonetic: '/ˌheksəˈdesɪml/', type: 'noun/adj',
+                definition: 'A base-16 positional numeral system that uses sixteen distinct symbols (0-9 and A-F).',
+                vietnamese: 'Hệ thập lục phân (Hệ cơ số 16)',
+                explanation: 'Hệ đếm dùng 16 ký hiệu từ 0-9 và A-F để biểu diễn giá trị nhị phân một cách gọn gàng.',
+                example: 'Memory addresses in debugging tools are usually expressed in hexadecimal format.',
+                notes: '1 ký tự Hex đại diện cho 4 bit (1 Nibble).'
+            },
+            {
+                id: 'b1-u7-1', book: 1, unit: 7, unitTitle: 'Computer Math & Logic',
+                term: 'Boolean Algebra', phonetic: '/ˈbuːliən ˈælʤəbrə/', type: 'noun',
+                definition: 'A branch of algebra in which the values of the variables are the truth values true and false.',
+                vietnamese: 'Đại số Boolean',
+                explanation: 'Hệ thống toán học làm nền tảng cho việc thiết kế các mạch logic kỹ thuật số.',
+                example: 'Engineers use Boolean algebra to simplify digital logic circuits.',
+                notes: 'Các phép toán chính: AND, OR, NOT, XOR.'
+            },
+            {
+                id: 'b1-u8-1', book: 1, unit: 8, unitTitle: 'Electricity & Circuits',
+                term: "Ohm's Law", phonetic: "/oʊmz lɔː/", type: 'noun',
+                definition: 'A law stating that electric current is proportional to voltage and inversely proportional to resistance (V = I * R).',
+                vietnamese: 'Định luật Ohm',
+                explanation: 'Công thức cơ bản của kỹ thuật điện biểu thị mối quan hệ giữa Điện áp, Dòng điện và Điện trở.',
+                example: "Using Ohm's Law, you can calculate the required resistor value for an LED.",
+                notes: 'Công thức: V = I × R.'
+            },
+            {
+                id: 'b1-u9-1', book: 1, unit: 9, unitTitle: 'Integrated Circuits',
+                term: 'Semiconductor', phonetic: '/ˌsemikənˈdʌktər/', type: 'noun',
+                definition: 'A material whose electrical conductivity value falls between that of a conductor and an insulator.',
+                vietnamese: 'Chất bán dẫn',
+                explanation: 'Vật liệu có khả năng dẫn điện trung bình (như Silicon) làm nền tảng sản xuất chip.',
+                example: 'Silicon is the most commonly used semiconductor material in microchip production.',
+                notes: 'Tạo nên bóng bán dẫn (Transistors).'
+            },
+            {
+                id: 'b1-u10-1', book: 1, unit: 10, unitTitle: 'PCB Design',
+                term: 'Printed Circuit Board (PCB)', phonetic: '/ˈprɪntɪd ˈsɜːrkɪt bɔːrd/', type: 'noun',
+                definition: 'A board that mechanically supports and electrically connects electronic components using conductive copper traces.',
+                vietnamese: 'Bo mạch in (PCB)',
+                explanation: 'Bảng nhựa kết nối các linh kiện điện tử bằng các đường dẫn đồng etched sẵn.',
+                example: 'Surface mount components are soldered onto pads on the PCB surface.',
+                notes: 'Có thể có nhiều lớp (Multi-layer PCB).'
+            },
+            {
+                id: 'b1-u11-1', book: 1, unit: 11, unitTitle: 'Networks Fundamentals',
+                term: 'MAC Address', phonetic: '/mæk əˈdres/', type: 'noun',
+                definition: 'A unique identifier assigned to a network interface controller (NIC) for use as a network address.',
+                vietnamese: 'Địa chỉ MAC (Media Access Control)',
+                explanation: 'Địa chỉ vật lý duy nhất gán cứng cho card mạng bởi nhà sản xuất.',
+                example: 'The router uses MAC addresses to route packets within the local Ethernet network.',
+                notes: 'Định dạng Hex 48-bit (ví dụ: 00:1A:2B:3C:4D:5E).'
+            },
+
+            // ================= BOOK 2: INTERMEDIATE =================
+            {
+                id: 'b2-u1-1', book: 2, unit: 1, unitTitle: 'Scientific Method & Measurements',
+                term: 'Oscilloscope', phonetic: '/əˈsɪləskoʊp/', type: 'noun',
+                definition: 'An electronic test instrument that graphically displays varying signal voltages over time.',
+                vietnamese: 'Máy hiện sóng (Oscilloscope)',
+                explanation: 'Thiết bị đo lường hiển thị dạng sóng điện áp theo thời gian trên màn hình.',
+                example: 'The engineer checked the digital clock signal integrity using a high-frequency oscilloscope.',
+                notes: 'Dùng để đo tần số, biên độ và nhiễu tín hiệu.'
+            },
+            {
+                id: 'b2-u2-1', book: 2, unit: 2, unitTitle: 'Engineering Physics',
+                term: 'Propagation Delay', phonetic: '/ˌprɑːpəˈɡeɪʃn dɪˈleɪ/', type: 'noun',
+                definition: 'The length of time it takes for a signal to travel from the sender to the receiver.',
+                vietnamese: 'Độ trễ truyền tín hiệu',
+                explanation: 'Khoảng thời gian tín hiệu điện/quang cần có để di chuyển từ điểm phát đến điểm nhận.',
+                example: 'High trace lengths on PCBs increase propagation delay and affect clock synchronization.',
+                notes: 'Rất quan trọng trong các thiết kế vi mạch tốc độ cao.'
+            },
+            {
+                id: 'b2-u3-1', book: 2, unit: 3, unitTitle: 'Semiconductor Physics',
+                term: 'PN Junction', phonetic: '/piː en ˈʤʌŋkʃn/', type: 'noun',
+                definition: 'A boundary between two types of semiconductor material, P-type and N-type, inside a single crystal.',
+                vietnamese: 'Lớp tiếp giáp P-N',
+                explanation: 'Ranh giới giữa chất bán dẫn loại P và loại N, làm nền tảng cho đi-ốt và transistor.',
+                example: 'A PN junction allows current to flow easily in only one direction.',
+                notes: 'Là cấu trúc cốt lõi của Diode và BJT.'
+            },
+            {
+                id: 'b2-u4-1', book: 2, unit: 4, unitTitle: 'Field Effect Transistors',
+                term: 'MOSFET', phonetic: '/ˈmɔːsfet/', type: 'noun',
+                definition: 'Metal-Oxide-Semiconductor Field-Effect Transistor used for switching or amplifying electronic signals.',
+                vietnamese: 'Transistor hiệu ứng trường MOSFET',
+                explanation: 'Loại transistor đóng cắt dòng điện bằng điện áp tại cực Cổng (Gate).',
+                example: 'CMOS microprocessors contain billions of tiny MOSFETs.',
+                notes: 'Gồm 3 cực chính: Gate, Drain, Source.'
+            },
+            {
+                id: 'b2-u5-1', book: 2, unit: 5, unitTitle: 'Digital Circuit Design',
+                term: 'Multiplexer (MUX)', phonetic: '/ˈmʌltɪpleksər/', type: 'noun',
+                definition: 'A device that selects one of several analog or digital input signals and forwards the selected input into a single line.',
+                vietnamese: 'Bộ dồn kênh (MUX)',
+                explanation: 'Mạch chọn 1 trong nhiều tín hiệu đầu vào để truyền ra 1 đầu ra duy nhất.',
+                example: 'A 4-to-1 multiplexer uses two control lines to choose which input signal to pass through.',
+                notes: 'Tương ứng ngược lại là Demultiplexer (DEMUX).'
+            },
+            {
+                id: 'b2-u6-1', book: 2, unit: 6, unitTitle: 'Computer Arithmetic',
+                term: 'Arithmetic Logic Unit (ALU)', phonetic: '/əˈrɪθmətɪk ˈlɑːʤɪk ˈjuːnɪt/', type: 'noun',
+                definition: 'A combinational digital circuit that performs arithmetic and bitwise operations on integer binary numbers.',
+                vietnamese: 'Đơn vị số học và logic (ALU)',
+                explanation: 'Khối chức năng bên trong CPU chuyên xử lý các phép tính cộng, trừ, AND, OR, Shift.',
+                example: 'The ALU executes instruction operands provided by the CPU register file.',
+                notes: 'Là trái tim tính toán của mọi vi xử lý.'
+            },
+            {
+                id: 'b2-u6-2', book: 2, unit: 6, unitTitle: 'Computer Arithmetic',
+                term: "Two's Complement", phonetic: "/tuːz ˈkɑːmplɪmənt/", type: 'noun',
+                definition: 'A mathematical operation on binary numbers used to represent negative numbers in digital systems.',
+                vietnamese: 'Mã Bù 2 (Representing Negative Numbers)',
+                explanation: 'Phương pháp mã hóa số nguyên âm trong máy tính bằng cách đảo tất cả các bit và cộng 1.',
+                example: "Two's complement simplifies hardware design because addition and subtraction use the same circuit.",
+                notes: 'Đảo bit (Bù 1) + 1 = Bù 2.'
+            },
+            {
+                id: 'b2-u7-1', book: 2, unit: 7, unitTitle: 'Instruction Set Architecture',
+                term: 'RISC (Reduced Instruction Set Computer)', phonetic: '/rɪsk/', type: 'noun',
+                definition: 'A CPU design strategy based on simplified instructions that execute in a single clock cycle.',
+                vietnamese: 'Kiến trúc máy tính với tập lệnh thu gọn (RISC)',
+                explanation: 'Triết lý thiết kế CPU tối giản số lệnh để tăng tốc độ và hiệu suất năng lượng.',
+                example: 'ARM and RISC-V processors dominate mobile systems due to their RISC architecture.',
+                notes: 'Trái ngược với CISC (như x86 của Intel/AMD).'
+            },
+            {
+                id: 'b2-u8-1', book: 2, unit: 8, unitTitle: 'Memory Systems Basics',
+                term: 'SRAM vs DRAM', phonetic: '/ˈesræm / /ˈdiːræm/', type: 'noun',
+                definition: 'SRAM is fast static memory used for cache; DRAM is dense dynamic memory that needs periodic refreshing.',
+                vietnamese: 'RAM tĩnh (SRAM) và RAM động (DRAM)',
+                explanation: 'SRAM tốc độ cao dùng cho Cache; DRAM mật độ cao giá rẻ hơn dùng cho bộ nhớ hệ thống chính.',
+                example: 'CPUs use SRAM for internal cache and DRAM for system memory modules.',
+                notes: 'DRAM cần mạch làm tươi (Refresh cycle).'
+            },
+            {
+                id: 'b2-u9-1', book: 2, unit: 9, unitTitle: 'Microcontrollers',
+                term: 'GPIO (General Purpose Input/Output)', phonetic: '/ˌʤiː piː aɪ ˈoʊ/', type: 'noun',
+                definition: 'An uncommitted digital signal pin on an integrated circuit whose behavior is controllable by user software.',
+                vietnamese: 'Cổng vào/ra tổng quát (GPIO)',
+                explanation: 'Chân tín hiệu trên vi điều khiển có thể lập trình thành đầu vào (đọc) hoặc đầu ra (xuất).',
+                example: 'The microcontroller turns on the status LED by writing a high signal to GPIO pin 5.',
+                notes: 'Thường thấy trên Arduino, Raspberry Pi, ESP32.'
+            },
+            {
+                id: 'b2-u10-1', book: 2, unit: 10, unitTitle: 'Control Systems',
+                term: 'Feedback Loop', phonetic: '/ˈfiːdbæk luːp/', type: 'noun',
+                definition: 'A system structure where output signal values are sampled and fed back to adjust control inputs.',
+                vietnamese: 'Vòng lặp phản hồi (Feedback Loop)',
+                explanation: 'Cấu trúc tự động điều chỉnh trong hệ thống điều khiển dựa trên sự chênh lệch đầu ra.',
+                example: 'The thermostat uses a closed feedback loop to maintain constant room temperature.',
+                notes: 'Phân loại: Positive feedback và Negative feedback.'
+            },
+
+            // ================= BOOK 3: ADVANCED =================
+            {
+                id: 'b3-u1-1', book: 3, unit: 1, unitTitle: 'Computer Languages & Compilers',
+                term: 'Assembly Language', phonetic: '/əˈsembli ˈlæŋɡwɪʤ/', type: 'noun',
+                definition: 'A low-level programming language with a strong correspondence between instructions and machine code.',
+                vietnamese: 'Hợp ngữ (Assembly)',
+                explanation: 'Ngôn ngữ lập trình cấp thấp sử dụng từ gợi nhớ (Mnemonics) trực tiếp điều khiển CPU.',
+                example: 'Engineers write critical firmware subroutines directly in assembly language for speed.',
+                notes: 'Cần trình dịch Assembler để đổi sang Machine Code.'
+            },
+            {
+                id: 'b3-u2-1', book: 3, unit: 2, unitTitle: 'CPU Pipelining',
+                term: 'Instruction Pipelining', phonetic: '/ɪnˈstrʌkʃn ˈpaɪplaɪnɪŋ/', type: 'noun',
+                definition: 'A technique that overlaps the execution of multiple instructions using sequential stages.',
+                vietnamese: 'Kỹ thuật đường ống lệnh (Pipelining)',
+                explanation: 'Phương pháp chia nhỏ việc xử lý lệnh thành nhiều giai đoạn song song (Fetch, Decode, Execute, Memory, Writeback).',
+                example: 'Pipelining significantly increases CPU throughput by executing different stages concurrently.',
+                notes: 'Gặp thách thức do Pipeline Hazards (Data, Control, Structural).'
+            },
+            {
+                id: 'b3-u3-1', book: 3, unit: 3, unitTitle: 'Instruction-Level Parallelism',
+                term: 'Out-of-Order Execution', phonetic: '/aʊt əv ˈɔːrdər ˌeksɪˈkjuːʃn/', type: 'noun',
+                definition: 'A paradigm used in high-performance microprocessors to execute instructions as data becomes available.',
+                vietnamese: 'Thực thi không theo thứ tự (OoOE)',
+                explanation: 'CPU tự động sắp xếp lại các lệnh không phụ thuộc dữ liệu để thực thi trước nhằm tối ưu tài nguyên.',
+                example: 'Modern superscalar processors rely on Out-of-Order execution to minimize idle clock cycles.',
+                notes: 'Cần Reorder Buffer (ROB) để ghi kết quả đúng thứ tự.'
+            },
+            {
+                id: 'b3-u4-1', book: 3, unit: 4, unitTitle: 'Advanced Memory Hierarchy',
+                term: 'Cache Hit vs Cache Miss', phonetic: '/kæʃ hɪt / kæʃ mɪs/', type: 'noun',
+                definition: 'Cache Hit occurs when requested data is in cache; Cache Miss occurs when data must be fetched from main RAM.',
+                vietnamese: 'Trúng bộ nhớ đệm (Cache Hit) & Trượt bộ nhớ đệm (Cache Miss)',
+                explanation: 'Hit = Tìm thấy dữ liệu sẵn trong Cache; Miss = Phải tốn thời gian truy xuất từ RAM.',
+                example: 'High cache hit rates are essential for maximizing modern processor benchmarks.',
+                notes: 'Cache Hit Rate (%) phản ánh hiệu quả tối ưu code.'
+            },
+            {
+                id: 'b3-u5-1', book: 3, unit: 5, unitTitle: 'Virtual Memory & Paging',
+                term: 'Translation Lookaside Buffer (TLB)', phonetic: '/trænsˈleɪʃn ˈlʊkəsaɪd ˈbʌfər/', type: 'noun',
+                definition: 'A memory cache used by the MMU to reduce the time taken to access a user memory location.',
+                vietnamese: 'Bộ đệm chuyển đổi địa chỉ TLB',
+                explanation: 'Bộ nhớ đệm tốc độ cực cao dùng để tra cứu nhanh bản dịch từ địa chỉ ảo sang địa chỉ vật lý.',
+                example: 'A TLB miss forces the processor to perform a slow page table walk in main memory.',
+                notes: 'Nằm ngay trong đơn vị MMU của CPU.'
+            },
+            {
+                id: 'b3-u6-1', book: 3, unit: 6, unitTitle: 'High-Performance Bus Architectures',
+                term: 'PCIe (PCI Express)', phonetic: '/piː ciː aɪ eksˈpres/', type: 'noun',
+                definition: 'A high-speed serial expansion bus standard designed to replace PCI, PCI-X, and AGP bus standards.',
+                vietnamese: 'Chuẩn giao tiếp PCIe',
+                explanation: 'Buýt truyền dữ liệu chuỗi tốc độ cao kết nối card đồ họa, ổ NVMe SSD vào bo mạch.',
+                example: 'PCIe Gen 5 provides twice the throughput per lane compared to PCIe Gen 4.',
+                notes: 'Đo theo số đường truyền (Lanes: x1, x4, x8, x16).'
+            },
+            {
+                id: 'b3-u7-1', book: 3, unit: 7, unitTitle: 'Multicore & Multiprocessing',
+                term: 'Cache Coherency (MESI Protocol)', phonetic: '/kæʃ koʊˈhɪrənsi/', type: 'noun',
+                definition: 'The uniformity of shared resource data that ends up stored in multiple local caches.',
+                vietnamese: 'Tính đồng bộ bộ nhớ đệm (Giao thức MESI)',
+                explanation: 'Cơ chế đảm bảo dữ liệu ghi ở Cache của nhân này được cập nhật ngay lập tức cho các nhân khác.',
+                example: 'Hardware snooping enforces cache coherency across multi-core CPUs.',
+                notes: 'MESI đại diện cho: Modified, Exclusive, Shared, Invalid.'
+            },
+            {
+                id: 'b3-u8-1', book: 3, unit: 8, unitTitle: 'GPU & Parallel Computing',
+                term: 'GPGPU', phonetic: '/ˌʤiː piː ˌʤiː piː ˈjuː/', type: 'noun',
+                definition: 'General-Purpose computing on Graphics Processing Units to perform non-graphics computations.',
+                vietnamese: 'Tính toán tổng quát trên chip đồ họa (GPGPU)',
+                explanation: 'Tận dụng hàng ngàn nhân xử lý nhỏ của GPU để chạy bài toán mô phỏng khoa học và AI.',
+                example: 'Deep learning models rely on GPGPU architectures like NVIDIA CUDA.',
+                notes: 'Rất hiệu quả với các phép toán mảng và ma trận song song.'
+            },
+            {
+                id: 'b3-u10-1', book: 3, unit: 10, unitTitle: 'Computer Architecture Evaluation',
+                term: "Amdahl's Law", phonetic: "/ˈæmdɑːlz lɔː/", type: 'noun',
+                definition: 'A formula which gives the theoretical speedup in latency of the execution of a task at fixed workload.',
+                vietnamese: 'Định luật Amdahl',
+                explanation: 'Công thức tính giới hạn tăng tốc của hệ thống khi chỉ nâng cấp một phần công việc.',
+                example: "Amdahl's Law proves that parallelizing a program is bottlenecked by its serial portion.",
+                notes: 'Speedup = 1 / ((1 - p) + (p / s)).'
+            },
+            {
+                id: 'b3-u13-1', book: 3, unit: 13, unitTitle: 'System-on-Chip (SoC)',
+                term: 'System-on-Chip (SoC)', phonetic: '/ˈsɪstəm ɑːn ʧɪp/', type: 'noun',
+                definition: 'An integrated circuit that integrates all or most components of a computer or electronic system.',
+                vietnamese: 'Hệ thống trên một vi mạch (SoC)',
+                explanation: 'Tích hợp CPU, GPU, NPU, RAM và bộ điều khiển ngoại vi lên duy nhất 1 con chip.',
+                example: 'Apple Silicon M-series and Qualcomm Snapdragon chips are modern SoCs.',
+                notes: 'Tiết kiệm diện tích và tiêu thụ ít điện năng.'
+            }
+        ];
+
+        // Utility for text-to-speech pronunciation
+        const speakEnglish = (text, rate = 0.9) => {
+            if (!('speechSynthesis' in window)) {
+                alert('Trình duyệt của bạn không hỗ trợ tính năng đọc phát âm (Web Speech API).');
+                return;
+            }
+            window.speechSynthesis.cancel(); // Stop current speech
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = rate;
+            
+            // Pick an English voice if available
+            const voices = window.speechSynthesis.getVoices();
+            const enVoice = voices.find(v => v.lang.includes('en-US') || v.lang.includes('en-GB'));
+            if (enVoice) utterance.voice = enVoice;
+
+            window.speechSynthesis.speak(utterance);
+        };
+
+        function Header({ currentTab, setCurrentTab, stats, resetProgress }) {
+            return (
+                <header className="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3">
+                    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                        {/* Logo & Title */}
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-cyan-500/20">
+                                <i className="fa-solid fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h1 className="text-lg font-bold bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
+                                    Career Paths: Computer Engineering
+                                </h1>
+                                <p className="text-xs text-slate-400">Hub Học Tập & Ôn Luyện Tiếng Anh Chuyên Nành (Book 1, 2, 3)</p>
+                            </div>
+                        </div>
+
+                        {/* Stats Badges */}
+                        <div className="flex items-center gap-3 text-xs">
+                            <div className="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700/60 flex items-center gap-2" title="Chuỗi ngày học">
+                                <i className="fa-solid fa-fire text-amber-500 animate-pulse"></i>
+                                <div>
+                                    <span className="text-slate-400">Streak: </span>
+                                    <span className="font-bold text-amber-400">{stats.streak} ngày</span>
+                                </div>
+                            </div>
+                            
+                            <div className="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700/60 flex items-center gap-2" title="Từ vựng đã thuộc">
+                                <i className="fa-solid fa-circle-check text-emerald-400"></i>
+                                <div>
+                                    <span className="text-slate-400">Thuộc: </span>
+                                    <span className="font-bold text-emerald-400">{stats.learnedCount} / {VOCABULARY_DATA.length}</span>
+                                </div>
+                            </div>
+
+                            <div className="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700/60 flex items-center gap-2" title="Điểm trắc nghiệm trung bình">
+                                <i className="fa-solid fa-trophy text-purple-400"></i>
+                                <div>
+                                    <span className="text-slate-400">Quiz Max: </span>
+                                    <span className="font-bold text-purple-300">{stats.highScore}%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Tab Switcher */}
+                        <nav className="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-medium">
+                            <button 
+                                onClick={() => setCurrentTab('flashcard')}
+                                className={`px-3 py-2 rounded-lg transition-all flex items-center gap-2 ${currentTab === 'flashcard' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'}`}
+                            >
+                                <i className="fa-solid fa-[#fa-cards] fa-clone"></i>
+                                Flashcards
+                            </button>
+                            <button 
+                                onClick={() => setCurrentTab('quiz')}
+                                className={`px-3 py-2 rounded-lg transition-all flex items-center gap-2 ${currentTab === 'quiz' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'}`}
+                            >
+                                <i className="fa-solid fa-list-check"></i>
+                                Trắc Nghiệm
+                            </button>
+                            <button 
+                                onClick={() => setCurrentTab('reader')}
+                                className={`px-3 py-2 rounded-lg transition-all flex items-center gap-2 ${currentTab === 'reader' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'}`}
+                            >
+                                <i className="fa-solid fa-book-open"></i>
+                                Bài Đọc
+                            </button>
+                            <button 
+                                onClick={() => setCurrentTab('glossary')}
+                                className={`px-3 py-2 rounded-lg transition-all flex items-center gap-2 ${currentTab === 'glossary' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'}`}
+                            >
+                                <i className="fa-solid fa-spell-check"></i>
+                                Từ Điển
+                            </button>
+                            <button 
+                                onClick={() => setCurrentTab('progress')}
+                                className={`px-3 py-2 rounded-lg transition-all flex items-center gap-2 ${currentTab === 'progress' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'}`}
+                            >
+                                <i className="fa-solid fa-chart-pie"></i>
+                                Tiến Độ
+                            </button>
+                        </nav>
+                    </div>
+                </header>
+            );
+        }
+
+        function SidebarFilter({ selectedBook, setSelectedBook, selectedUnit, setSelectedUnit, learnedIds }) {
+            // Group units
+            const bookUnits = React.useMemo(() => {
+                const map = { 1: [], 2: [], 3: [] };
+                VOCABULARY_DATA.forEach(item => {
+                    if (!map[item.book].some(u => u.unit === item.unit)) {
+                        map[item.book].push({ unit: item.unit, title: item.unitTitle });
+                    }
+                });
+                return map;
+            }, []);
+
+            return (
+                <aside className="w-full lg:w-72 glass-panel rounded-2xl p-4 border border-slate-800 space-y-5 h-fit">
+                    <div>
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
+                            <i className="fa-solid fa-filter text-cyan-400"></i> Chọn Bộ Sách (Level)
+                        </h3>
+                        <div className="grid grid-cols-1 gap-2">
+                            <button
+                                onClick={() => { setSelectedBook('all'); setSelectedUnit('all'); }}
+                                className={`w-full px-3 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${selectedBook === 'all' ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold' : 'bg-slate-900/60 hover:bg-slate-800 text-slate-300'}`}
+                            >
+                                <span><i className="fa-solid fa-layer-group mr-2"></i> Tải Cả 3 Sách</span>
+                                <span className="bg-slate-800/80 px-2 py-0.5 rounded text-[10px]">{VOCABULARY_DATA.length} từ</span>
+                            </button>
+                            
+                            {[
+                                { id: 1, name: 'Book 1: Basics', desc: 'Hardware, OS, Math, PCB', color: 'from-blue-600 to-cyan-600' },
+                                { id: 2, name: 'Book 2: Intermediate', desc: 'Oscilloscope, ALU, RISC, MUX', color: 'from-purple-600 to-indigo-600' },
+                                { id: 3, name: 'Book 3: Advanced', desc: 'Pipeline, Cache, PCIe, SoC', color: 'from-emerald-600 to-teal-600' }
+                            ].map(b => (
+                                <button
+                                    key={b.id}
+                                    onClick={() => { setSelectedBook(b.id); setSelectedUnit('all'); }}
+                                    className={`w-full px-3 py-2.5 rounded-xl text-xs font-medium text-left transition-all ${selectedBook === b.id ? `bg-gradient-to-r ${b.color} text-white font-bold shadow-lg shadow-cyan-900/30` : 'bg-slate-900/60 hover:bg-slate-800 text-slate-300'}`}
+                                >
+                                    <div className="font-semibold">{b.name}</div>
+                                    <div className="text-[10px] text-slate-300/80 truncate">{b.desc}</div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Unit Selector */}
+                    <div>
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-between">
+                            <span><i className="fa-solid fa-book-bookmark text-cyan-400 mr-2"></i> Chọn Bài Học (Unit)</span>
+                        </h3>
+                        
+                        <select
+                            value={selectedUnit}
+                            onChange={(e) => setSelectedUnit(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        >
+                            <option value="all">Tất cả Unit thuộc bộ sách chọn</option>
+                            {(selectedBook === 'all' ? [1, 2, 3] : [selectedBook]).map(bId => (
+                                <optgroup key={bId} label={`Book ${bId}`}>
+                                    {bookUnits[bId].map(u => (
+                                        <option key={`${bId}-${u.unit}`} value={u.unit}>
+                                            Unit {u.unit}: {u.title}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Quick Stats Summary */}
+                    <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 text-xs space-y-2">
+                        <div className="text-slate-400 font-medium">Lớp Lọc Hiện Tại:</div>
+                        <div className="flex justify-between text-slate-300">
+                            <span>Số thuật ngữ:</span>
+                            <span className="font-bold text-cyan-400">
+                                {VOCABULARY_DATA.filter(item => 
+                                    (selectedBook === 'all' || item.book === selectedBook) &&
+                                    (selectedUnit === 'all' || item.unit === selectedUnit)
+                                ).length} từ
+                            </span>
+                        </div>
+                        <div className="flex justify-between text-slate-300">
+                            <span>Đã hoàn thành:</span>
+                            <span className="font-bold text-emerald-400">
+                                {VOCABULARY_DATA.filter(item => 
+                                    (selectedBook === 'all' || item.book === selectedBook) &&
+                                    (selectedUnit === 'all' || item.unit === selectedUnit) &&
+                                    learnedIds.includes(item.id)
+                                ).length} từ
+                            </span>
+                        </div>
+                    </div>
+                </aside>
+            );
+        }
+
+        function FlashcardsModule({ vocabulary, learnedIds, toggleLearned }) {
+            const [currentIndex, setCurrentIndex] = React.useState(0);
+            const [isFlipped, setIsFlipped] = React.useState(false);
+            const [autoSpeech, setAutoSpeech] = React.useState(true);
+
+            // Reset index if list changes
+            React.useEffect(() => {
+                setCurrentIndex(0);
+                setIsFlipped(false);
+            }, [vocabulary.length]);
+
+            if (!vocabulary || vocabulary.length === 0) {
+                return (
+                    <div className="glass-panel rounded-2xl p-12 text-center text-slate-400 space-y-3">
+                        <i className="fa-solid fa-folder-open text-4xl text-slate-600"></i>
+                        <p className="text-base font-medium">Không tìm thấy từ vựng tương ứng với bộ lọc này.</p>
+                        <p className="text-xs text-slate-500">Vui lòng chuyển đổi chọn Book hoặc Unit ở bảng điều khiển bên trái.</p>
+                    </div>
+                );
+            }
+
+            const currentCard = vocabulary[currentIndex] || vocabulary[0];
+            const isLearned = learnedIds.includes(currentCard.id);
+
+            const handleNext = () => {
+                setIsFlipped(false);
+                setCurrentIndex((prev) => (prev + 1) % vocabulary.length);
+            };
+
+            const handlePrev = () => {
+                setIsFlipped(false);
+                setCurrentIndex((prev) => (prev - 1 + vocabulary.length) % vocabulary.length);
+            };
+
+            const handleShuffle = () => {
+                setIsFlipped(false);
+                const randomIndex = Math.floor(Math.random() * vocabulary.length);
+                setCurrentIndex(randomIndex);
+            };
+
+            // Keyboard navigation
+            React.useEffect(() => {
+                const handleKeyDown = (e) => {
+                    if (e.key === ' ') {
+                        e.preventDefault();
+                        setIsFlipped(f => !f);
+                    } else if (e.key === 'ArrowRight') {
+                        handleNext();
+                    } else if (e.key === 'ArrowLeft') {
+                        handlePrev();
+                    } else if (e.key === 'm' || e.key === 'M') {
+                        toggleLearned(currentCard.id);
+                    } else if (e.key === 's' || e.key === 'S') {
+                        speakEnglish(currentCard.term);
+                    }
+                };
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, [currentCard, vocabulary.length]);
+
+            return (
+                <div className="space-y-6">
+                    {/* Top Control Header */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 text-xs bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                        <div className="flex items-center gap-2 text-slate-400">
+                            <span className="font-bold text-cyan-400 text-sm">Thẻ {currentIndex + 1} / {vocabulary.length}</span>
+                            <span>•</span>
+                            <span className="bg-slate-800 px-2 py-0.5 rounded text-slate-300">
+                                Book {currentCard.book} - Unit {currentCard.unit}
+                            </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setAutoSpeech(!autoSpeech)}
+                                className={`px-2.5 py-1 rounded-lg border text-[11px] transition-all flex items-center gap-1.5 ${autoSpeech ? 'border-cyan-500/50 bg-cyan-950/40 text-cyan-300' : 'border-slate-800 text-slate-400'}`}
+                            >
+                                <i className={`fa-solid ${autoSpeech ? 'fa-volume-high' : 'fa-volume-xmark'}`}></i>
+                                <span>Tự động đọc: {autoSpeech ? 'BẬT' : 'TẮT'}</span>
+                            </button>
+
+                            <button
+                                onClick={handleShuffle}
+                                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all flex items-center gap-1"
+                                title="Xáo trộn vị trí bài học"
+                            >
+                                <i className="fa-solid fa-shuffle text-cyan-400"></i> Xáo Trộn
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* 3D Flip Card Container */}
+                    <div className="perspective-1000 w-full min-h-[360px] md:min-h-[400px]">
+                        <div
+                            onClick={() => {
+                                setIsFlipped(!isFlipped);
+                                if (!isFlipped && autoSpeech) {
+                                    speakEnglish(currentCard.term);
+                                }
+                            }}
+                            className={`relative w-full h-full min-h-[360px] md:min-h-[400px] transition-transform duration-500 transform-style-3d cursor-pointer ${isFlipped ? 'rotate-y-180' : ''}`}
+                        >
+                            {/* FRONT SIDE */}
+                            <div className="absolute inset-0 w-full h-full backface-hidden glass-panel rounded-3xl p-8 flex flex-col justify-between border-2 border-slate-800 hover:border-cyan-500/40 transition-all shadow-2xl">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-mono tracking-widest text-cyan-400 uppercase bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
+                                        Unit {currentCard.unit}: {currentCard.unitTitle}
+                                    </span>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleLearned(currentCard.id);
+                                        }}
+                                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${isLearned ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-slate-800 hover:bg-slate-700 text-slate-400'}`}
+                                    >
+                                        <i className={`fa-solid ${isLearned ? 'fa-check-circle' : 'fa-circle'}`}></i>
+                                        {isLearned ? 'Đã Thuộc' : 'Đánh dấu thuộc'}
+                                    </button>
+                                </div>
+
+                                <div className="text-center my-auto space-y-4">
+                                    <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-wide">
+                                        {currentCard.term}
+                                    </h2>
+                                    <div className="flex items-center justify-center gap-3">
+                                        <span className="text-slate-400 font-mono text-base">{currentCard.phonetic}</span>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                speakEnglish(currentCard.term);
+                                            }}
+                                            className="w-9 h-9 rounded-full bg-cyan-500/20 hover:bg-cyan-500 text-cyan-400 hover:text-slate-950 flex items-center justify-center transition-all"
+                                            title="Phát âm tiếng Anh"
+                                        >
+                                            <i className="fa-solid fa-volume-high text-sm"></i>
+                                        </button>
+                                    </div>
+                                    <p className="text-xs text-slate-500 font-mono italic">({currentCard.type})</p>
+                                </div>
+
+                                <div className="text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+                                    <i className="fa-solid fa-hand-pointer text-cyan-400 animate-bounce"></i>
+                                    <span>Chạm vào thẻ hoặc bấm [Phím Cách] để lật mở định nghĩa & nghĩa tiếng Việt</span>
+                                </div>
+                            </div>
+
+                            {/* BACK SIDE */}
+                            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 glass-panel rounded-3xl p-8 flex flex-col justify-between border-2 border-cyan-500/40 bg-slate-900/95 shadow-2xl overflow-y-auto">
+                                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-lg font-bold text-cyan-400">{currentCard.term}</span>
+                                        <span className="text-xs text-slate-400">({currentCard.type})</span>
+                                    </div>
+                                    <span className="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded-full">
+                                        {currentCard.vietnamese}
+                                    </span>
+                                </div>
+
+                                <div className="my-auto space-y-4 py-2">
+                                    <div>
+                                        <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Định Nghĩa Tiếng Anh:</h4>
+                                        <p className="text-sm text-slate-200 leading-relaxed font-sans">{currentCard.definition}</p>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">Giải Thích Tiếng Việt:</h4>
+                                        <p className="text-sm text-slate-300 leading-relaxed">{currentCard.explanation}</p>
+                                    </div>
+
+                                    <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                                        <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                            <i className="fa-solid fa-quote-left"></i> Câu Ví Dụ Ngữ Cảnh:
+                                        </h4>
+                                        <p className="text-xs text-slate-300 italic">"{currentCard.example}"</p>
+                                    </div>
+
+                                    {currentCard.notes && (
+                                        <div className="text-xs text-slate-400 bg-cyan-950/30 p-2.5 rounded-lg border border-cyan-900/50">
+                                            <span className="font-semibold text-cyan-300">💡 Ghi chú kỹ thuật: </span>
+                                            {currentCard.notes}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="text-center text-[11px] text-slate-500 pt-2 border-t border-slate-800/80">
+                                    Lật thẻ lại để ôn từ mới
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Navigation Controls Bar */}
+                    <div className="flex items-center justify-between gap-4">
+                        <button
+                            onClick={handlePrev}
+                            className="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-sm font-semibold transition-all flex items-center gap-2 shadow-lg"
+                        >
+                            <i className="fa-solid fa-arrow-left"></i> Từ Trước [←]
+                        </button>
+
+                        <button
+                            onClick={() => toggleLearned(currentCard.id)}
+                            className={`px-6 py-3 rounded-xl text-sm font-bold transition-all flex items-center gap-2 shadow-lg ${isLearned ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'}`}
+                        >
+                            <i className={`fa-solid ${isLearned ? 'fa-check' : 'fa-plus'}`}></i>
+                            {isLearned ? 'Đã Học Thuộc' : 'Đánh Dấu Thuộc [M]'}
+                        </button>
+
+                        <button
+                            onClick={handleNext}
+                            className="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/20"
+                        >
+                            Từ Tiếp [→] <i className="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    {/* Keyboard Shortcuts Legend */}
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400 pt-2">
+                        <span><kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">Space</kbd> Lật Thẻ</span>
+                        <span><kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">←/→</kbd> Chuyển Từ</span>
+                        <span><kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">S</kbd> Đọc Phát Âm</span>
+                        <span><kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">M</kbd> Thuộc / Chưa Thuộc</span>
+                    </div>
+                </div>
+            );
+        }
+
+        function QuizModule({ vocabulary, recordQuizScore }) {
+            const [quizMode, setQuizMode] = React.useState('mcq'); // 'mcq', 'matching', 'fill'
+            const [questions, setQuestions] = React.useState([]);
+            const [currentQIndex, setCurrentQIndex] = React.useState(0);
+            const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+            const [isSubmitted, setIsSubmitted] = React.useState(false);
+            const [score, setScore] = React.useState(0);
+            const [quizFinished, setQuizFinished] = React.useState(false);
+
+            // Generate quiz items based on current vocabulary list
+            const generateQuiz = React.useCallback(() => {
+                if (!vocabulary || vocabulary.length < 3) return;
+
+                const shuffledVocab = [...vocabulary].sort(() => 0.5 - Math.random());
+                const selectedItems = shuffledVocab.slice(0, Math.min(10, shuffledVocab.length));
+
+                const generatedQs = selectedItems.map((item) => {
+                    // Pick 3 random distractor definitions/translations
+                    const otherItems = VOCABULARY_DATA.filter(v => v.id !== item.id);
+                    const distractors = [...otherItems].sort(() => 0.5 - Math.random()).slice(0, 3);
+
+                    if (quizMode === 'mcq') {
+                        const options = [
+                            { text: `${item.vietnamese} (${item.definition})`, isCorrect: true },
+                            ...distractors.map(d => ({ text: `${d.vietnamese} (${d.definition})`, isCorrect: false }))
+                        ].sort(() => 0.5 - Math.random());
+
+                        return {
+                            id: item.id,
+                            term: item.term,
+                            phonetic: item.phonetic,
+                            book: item.book,
+                            unit: item.unit,
+                            options,
+                            correctExplanation: `${item.term}: ${item.vietnamese} - ${item.explanation}`
+                        };
+                    } else if (quizMode === 'fill') {
+                        // Replace term in example sentence with blank
+                        const sentenceWithBlank = item.example.replace(new RegExp(item.term, 'gi'), '__________');
+                        const options = [
+                            { text: item.term, isCorrect: true },
+                            ...distractors.map(d => ({ text: d.term, isCorrect: false }))
+                        ].sort(() => 0.5 - Math.random());
+
+                        return {
+                            id: item.id,
+                            prompt: sentenceWithBlank,
+                            vietnameseHint: item.vietnamese,
+                            options,
+                            correctExplanation: item.example
+                        };
+                    }
+                });
+
+                setQuestions(generatedQs);
+                setCurrentQIndex(0);
+                setSelectedAnswer(null);
+                setIsSubmitted(false);
+                setScore(0);
+                setQuizFinished(false);
+            }, [vocabulary, quizMode]);
+
+            React.useEffect(() => {
+                generateQuiz();
+            }, [generateQuiz]);
+
+            if (!vocabulary || vocabulary.length < 3) {
+                return (
+                    <div className="glass-panel rounded-2xl p-12 text-center text-slate-400 space-y-3">
+                        <i className="fa-solid fa-triangle-exclamation text-4xl text-amber-500"></i>
+                        <p className="text-base font-medium">Cần ít nhất 3 thuật ngữ để tạo bài trắc nghiệm.</p>
+                        <p className="text-xs text-slate-500">Hãy chọn lại bộ lọc sách hoặc Unit rộng hơn ở danh mục bên trái.</p>
+                    </div>
+                );
+            }
+
+            if (quizFinished) {
+                const percentage = Math.round((score / questions.length) * 100);
+                
+                // Trigger confetti on good score
+                if (percentage >= 80 && window.confetti) {
+                    window.confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                }
+
+                return (
+                    <div className="glass-panel rounded-3xl p-8 text-center space-y-6 max-w-xl mx-auto border border-cyan-500/30">
+                        <div className="w-20 h-20 rounded-full bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-3xl shadow-lg">
+                            <i className="fa-solid fa-award"></i>
+                        </div>
+
+                        <div>
+                            <h2 className="text-2xl font-bold text-white">Hoàn Thành Bài Trắc Nghiệm!</h2>
+                            <p className="text-xs text-slate-400 mt-1">Kết quả kiểm tra từ vựng chuyên ngành Computer Engineering</p>
+                        </div>
+
+                        <div className="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div className="text-4xl font-extrabold text-cyan-400">{score} / {questions.length}</div>
+                            <div className="text-sm font-semibold text-slate-300">Tỷ lệ chính xác: {percentage}%</div>
+                            <div className="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                                <div 
+                                    className={`h-full transition-all duration-1000 ${percentage >= 80 ? 'bg-emerald-500' : percentage >= 50 ? 'bg-amber-500' : 'bg-rose-500'}`}
+                                    style={{ width: `${percentage}%` }}
+                                ></div>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <button
+                                onClick={generateQuiz}
+                                className="flex-1 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all text-sm shadow-lg shadow-cyan-500/20"
+                            >
+                                <i className="fa-solid fa-rotate-right mr-2"></i> Luyện Tập Lại
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            const currentQ = questions[currentQIndex];
+            if (!currentQ) return null;
+
+            const handleSelectOption = (idx) => {
+                if (isSubmitted) return;
+                setSelectedAnswer(idx);
+            };
+
+            const handleSubmitAnswer = () => {
+                if (selectedAnswer === null) return;
+                setIsSubmitted(true);
+                if (currentQ.options[selectedAnswer].isCorrect) {
+                    setScore(s => s + 1);
+                }
+            };
+
+            const handleNextQuestion = () => {
+                if (currentQIndex + 1 < questions.length) {
+                    setCurrentQIndex(i => i + 1);
+                    setSelectedAnswer(null);
+                    setIsSubmitted(false);
+                } else {
+                    setQuizFinished(true);
+                    recordQuizScore(Math.round(((score + (currentQ.options[selectedAnswer].isCorrect ? 1 : 0)) / questions.length) * 100));
+                }
+            };
+
+            return (
+                <div className="space-y-6">
+                    {/* Top Mode Selection */}
+                    <div className="flex items-center justify-between bg-slate-900/60 p-3 rounded-xl border border-slate-800 text-xs">
+                        <div className="flex items-center gap-2">
+                            <span className="text-slate-400 font-medium">Chế độ kiểm tra:</span>
+                            <button
+                                onClick={() => setQuizMode('mcq')}
+                                className={`px-3 py-1.5 rounded-lg transition-all ${quizMode === 'mcq' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300'}`}
+                            >
+                                Chọn Định Nghĩa
+                            </button>
+                            <button
+                                onClick={() => setQuizMode('fill')}
+                                className={`px-3 py-1.5 rounded-lg transition-all ${quizMode === 'fill' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300'}`}
+                            >
+                                Điền Khuyết Ngữ Cảnh
+                            </button>
+                        </div>
+
+                        <div className="font-mono text-cyan-400 font-bold">
+                            Câu {currentQIndex + 1} / {questions.length}
+                        </div>
+                    </div>
+
+                    {/* Question Panel */}
+                    <div className="glass-panel rounded-3xl p-6 md:p-8 space-y-6 border border-slate-800">
+                        {quizMode === 'mcq' ? (
+                            <div className="space-y-2">
+                                <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
+                                    Book {currentQ.book} - Unit {currentQ.unit}
+                                </span>
+                                <h3 className="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3 pt-2">
+                                    {currentQ.term}
+                                    <button
+                                        onClick={() => speakEnglish(currentQ.term)}
+                                        className="text-cyan-400 hover:text-cyan-300 text-base"
+                                    >
+                                        <i className="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </h3>
+                                <p className="text-xs text-slate-400 font-mono">{currentQ.phonetic}</p>
+                                <p className="text-sm text-slate-300 pt-2">Chọn giải nghĩa chuẩn xác nhất cho thuật ngữ trên:</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                <span className="text-xs font-mono text-amber-400 uppercase tracking-widest bg-amber-950/60 border border-amber-800/60 px-3 py-1 rounded-full">
+                                    Gợi ý tiếng Việt: {currentQ.vietnameseHint}
+                                </span>
+                                <p className="text-lg text-slate-100 font-serif leading-relaxed italic bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                                    "{currentQ.prompt}"
+                                </p>
+                                <p className="text-sm text-slate-300">Chọn thuật ngữ tiếng Anh chính xác điền vào khoảng trống:</p>
+                            </div>
+                        )}
+
+                        {/* Options Grid */}
+                        <div className="grid grid-cols-1 gap-3">
+                            {currentQ.options.map((opt, idx) => {
+                                let btnStyle = "bg-slate-900/80 hover:bg-slate-800 border-slate-800 text-slate-200";
+                                if (selectedAnswer === idx) {
+                                    btnStyle = "bg-cyan-950/80 border-cyan-500 text-cyan-200 font-semibold";
+                                }
+                                if (isSubmitted) {
+                                    if (opt.isCorrect) {
+                                        btnStyle = "bg-emerald-950/90 border-emerald-500 text-emerald-200 font-bold shadow-lg shadow-emerald-950/50";
+                                    } else if (selectedAnswer === idx) {
+                                        btnStyle = "bg-rose-950/90 border-rose-500 text-rose-200 font-bold";
+                                    }
+                                }
+
+                                return (
+                                    <button
+                                        key={idx}
+                                        onClick={() => handleSelectOption(idx)}
+                                        disabled={isSubmitted}
+                                        className={`w-full p-4 rounded-2xl border text-left text-sm transition-all flex items-start gap-3 ${btnStyle}`}
+                                    >
+                                        <span className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                                            {String.fromCharCode(65 + idx)}
+                                        </span>
+                                        <span className="leading-relaxed">{opt.text}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Feedback & Actions */}
+                        {isSubmitted && (
+                            <div className={`p-4 rounded-2xl border text-xs leading-relaxed space-y-1 ${currentQ.options[selectedAnswer].isCorrect ? 'bg-emerald-950/40 border-emerald-800/80 text-emerald-300' : 'bg-rose-950/40 border-rose-800/80 text-rose-300'}`}>
+                                <div className="font-bold text-sm flex items-center gap-2">
+                                    <i className={`fa-solid ${currentQ.options[selectedAnswer].isCorrect ? 'fa-circle-check' : 'fa-circle-xmark'}`}></i>
+                                    {currentQ.options[selectedAnswer].isCorrect ? 'Chính Xác!' : 'Chưa Chính Xác!'}
+                                </div>
+                                <div><span className="font-semibold">Giải thích: </span>{currentQ.correctExplanation}</div>
+                            </div>
+                        )}
+
+                        <div className="flex justify-end pt-2">
+                            {!isSubmitted ? (
+                                <button
+                                    onClick={handleSubmitAnswer}
+                                    disabled={selectedAnswer === null}
+                                    className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${selectedAnswer !== null ? 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}`}
+                                >
+                                    Xác Nhận Đáp Án
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleNextQuestion}
+                                    className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2"
+                                >
+                                    {currentQIndex + 1 < questions.length ? 'Câu Tiếp Theo' : 'Xem Kết Quả'} <i className="fa-solid fa-arrow-right"></i>
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function ReadingModule({ selectedBook, selectedUnit }) {
+            const [activeUnit, setActiveUnit] = React.useState(selectedUnit === 'all' ? 1 : selectedUnit);
+            const [activeBook, setActiveBook] = React.useState(selectedBook === 'all' ? 1 : selectedBook);
+
+            // Sync with parent filter
+            React.useEffect(() => {
+                if (selectedBook !== 'all') setActiveBook(selectedBook);
+                if (selectedUnit !== 'all') setActiveUnit(selectedUnit);
+            }, [selectedBook, selectedUnit]);
+
+            const currentVocabList = VOCABULARY_DATA.filter(v => v.book === activeBook && v.unit === activeUnit);
+            const unitTitle = currentVocabList.length > 0 ? currentVocabList[0].unitTitle : `Unit ${activeUnit}`;
+
+            // Simulated Reading Passages per book
+            const readingPassages = {
+                1: "Modern computer systems consist of integrated hardware components working seamlessly together. At the heart of every PC is the motherboard, which houses the Central Processing Unit (CPU) and System RAM. Operating systems manage process execution through kernel routines and present user interfaces such as GUIs. Data persistence is guaranteed through non-volatile devices like Solid State Drives (SSDs). Engineers also analyze low-level binary math using Boolean Algebra and adhere to electrical fundamentals governed by Ohm's Law.",
+                2: "Intermediate computer architecture focuses on circuit execution efficiency and signal dynamics. Instruments like the oscilloscope allow engineers to trace propagation delay across high-speed PCB traces. Inside the CPU, the Arithmetic Logic Unit (ALU) performs bitwise shifting and two's complement arithmetic operations. Reduced Instruction Set Computers (RISC) optimize execution by implementing single-cycle instructions, while components like multiplexers (MUX) handle dynamic signal routing.",
+                3: "Advanced computer engineering addresses performance scaling through hardware parallelism and memory hierarchies. Modern microprocessors employ instruction pipelining, out-of-order execution (OoOE), and multi-level cache hierarchies (L1, L2, L3). Translation Lookaside Buffers (TLB) accelerate virtual memory address conversion, while high-bandwidth interconnects like PCIe and NVMe maximize data throughput across System-on-Chip (SoC) architectures."
+            };
+
+            return (
+                <div className="space-y-6">
+                    {/* Unit Selector Header */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                        <div>
+                            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">
+                                Book {activeBook} - Unit {activeUnit}
+                            </span>
+                            <h2 className="text-xl font-bold text-white">{unitTitle}</h2>
+                        </div>
+
+                        <button
+                            onClick={() => speakEnglish(readingPassages[activeBook])}
+                            className="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 font-bold text-xs transition-all flex items-center gap-2 border border-cyan-500/40"
+                        >
+                            <i className="fa-solid fa-volume-high"></i> Nghe Đọc Bài Text (Audio)
+                        </button>
+                    </div>
+
+                    {/* Textbook Passage Card */}
+                    <div className="glass-panel rounded-3xl p-6 md:p-8 space-y-4 border border-slate-800">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i className="fa-solid fa-file-lines text-cyan-400"></i> Bài Đọc Mẫu Ngữ Cảnh Chuyên Ngành (Core Reading Text)
+                        </h3>
+                        <p className="text-base text-slate-200 font-serif leading-relaxed bg-slate-950/60 p-6 rounded-2xl border border-slate-800/80">
+                            {readingPassages[activeBook]}
+                        </p>
+                    </div>
+
+                    {/* Vocabulary Highlights Table */}
+                    <div className="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i className="fa-solid fa-table-list text-cyan-400"></i> Thuật Ngữ Trọng Tâm Trong Bài Học ({currentVocabList.length})
+                        </h3>
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-xs text-slate-300 border-collapse">
+                                <thead>
+                                    <tr className="border-b border-slate-800 text-slate-400 uppercase font-mono bg-slate-900/50">
+                                        <th className="p-3">Thuật Ngữ (Term)</th>
+                                        <th className="p-3">Phiên Âm</th>
+                                        <th className="p-3">Tiếng Việt</th>
+                                        <th className="p-3">Định Nghĩa Tiếng Anh</th>
+                                        <th className="p-3 text-center">Âm Thanh</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentVocabList.map(v => (
+                                        <tr key={v.id} className="border-b border-slate-800/60 hover:bg-slate-800/40 transition-all">
+                                            <td className="p-3 font-bold text-cyan-300">{v.term}</td>
+                                            <td className="p-3 font-mono text-slate-400">{v.phonetic}</td>
+                                            <td className="p-3 font-semibold text-emerald-400">{v.vietnamese}</td>
+                                            <td className="p-3 text-slate-300 max-w-xs">{v.definition}</td>
+                                            <td className="p-3 text-center">
+                                                <button
+                                                    onClick={() => speakEnglish(v.term)}
+                                                    className="w-7 h-7 rounded-full bg-slate-800 hover:bg-cyan-500 text-slate-300 hover:text-slate-950 flex items-center justify-center transition-all mx-auto"
+                                                >
+                                                    <i className="fa-solid fa-volume-high text-xs"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function GlossaryModule({ learnedIds, toggleLearned }) {
+            const [searchTerm, setSearchTerm] = React.useState('');
+            const [filterBook, setFilterBook] = React.useState('all');
+            const [selectedTermDetail, setSelectedTermDetail] = React.useState(null);
+
+            const filteredList = React.useMemo(() => {
+                return VOCABULARY_DATA.filter(item => {
+                    const matchesSearch = item.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                          item.vietnamese.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                          item.definition.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesBook = filterBook === 'all' || item.book === Number(filterBook);
+                    return matchesSearch && matchesBook;
+                });
+            }, [searchTerm, filterBook]);
+
+            return (
+                <div className="space-y-6">
+                    {/* Search & Filter Controls */}
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                        <div className="relative w-full md:w-96">
+                            <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+                            <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder="Tìm kiếm thuật ngữ (ví dụ: ALU, MOSFET, Cache...)"
+                                className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-all"
+                            />
+                        </div>
+
+                        <div className="flex items-center gap-3 w-full md:w-auto">
+                            <select
+                                value={filterBook}
+                                onChange={(e) => setFilterBook(e.target.value)}
+                                className="bg-slate-950 border border-slate-800 text-xs text-slate-300 rounded-xl px-3 py-2 focus:outline-none focus:border-cyan-500"
+                            >
+                                <option value="all">Tất cả Sách (Book 1, 2, 3)</option>
+                                <option value="1">Book 1: Basics</option>
+                                <option value="2">Book 2: Intermediate</option>
+                                <option value="3">Book 3: Advanced</option>
+                            </select>
+
+                            <span className="text-xs text-slate-400 font-mono">
+                                Kết quả: <strong className="text-cyan-400">{filteredList.length}</strong> từ
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Term Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {filteredList.map(item => {
+                            const isLearned = learnedIds.includes(item.id);
+                            return (
+                                <div
+                                    key={item.id}
+                                    onClick={() => setSelectedTermDetail(item)}
+                                    className="glass-panel p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all cursor-pointer space-y-3 group"
+                                >
+                                    <div className="flex items-start justify-between gap-2">
+                                        <div>
+                                            <div className="flex items-center gap-2">
+                                                <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
+                                                    {item.term}
+                                                </h3>
+                                                <span className="text-[10px] font-mono text-slate-400">({item.type})</span>
+                                            </div>
+                                            <p className="text-xs font-mono text-slate-400">{item.phonetic}</p>
+                                        </div>
+
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleLearned(item.id);
+                                            }}
+                                            className={`p-2 rounded-lg text-xs transition-all ${isLearned ? 'text-emerald-400 bg-emerald-950/40' : 'text-slate-500 hover:text-slate-300 bg-slate-900'}`}
+                                            title={isLearned ? 'Đã thuộc' : 'Đánh dấu thuộc'}
+                                        >
+                                            <i className={`fa-solid ${isLearned ? 'fa-circle-check' : 'fa-circle'}`}></i>
+                                        </button>
+                                    </div>
+
+                                    <div className="text-xs text-emerald-400 font-semibold">
+                                        {item.vietnamese}
+                                    </div>
+
+                                    <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                        {item.definition}
+                                    </p>
+
+                                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-800/80">
+                                        <span className="bg-slate-900 px-2 py-0.5 rounded">Book {item.book} - Unit {item.unit}</span>
+                                        <span className="text-cyan-400 flex items-center gap-1">Chi tiết <i className="fa-solid fa-chevron-right text-[8px]"></i></span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Detailed Term Modal */}
+                    {selectedTermDetail && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+                            <div className="glass-panel max-w-lg w-full rounded-3xl p-6 border border-cyan-500/40 space-y-4 shadow-2xl relative">
+                                <button
+                                    onClick={() => setSelectedTermDetail(null)}
+                                    className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all"
+                                >
+                                    <i className="fa-solid fa-xmark"></i>
+                                </button>
+
+                                <div className="space-y-1">
+                                    <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950 border border-cyan-800 px-2.5 py-0.5 rounded-full uppercase">
+                                        Book {selectedTermDetail.book} • Unit {selectedTermDetail.unit}
+                                    </span>
+                                    <h2 className="text-2xl font-extrabold text-white pt-1">{selectedTermDetail.term}</h2>
+                                    <p className="text-xs font-mono text-slate-400">{selectedTermDetail.phonetic}</p>
+                                </div>
+
+                                <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
+                                    <div className="text-xs font-bold text-slate-400">Nghĩa Tiếng Việt:</div>
+                                    <div className="text-sm font-bold text-emerald-400">{selectedTermDetail.vietnamese}</div>
+                                </div>
+
+                                <div className="space-y-2 text-xs text-slate-300">
+                                    <div>
+                                        <span className="font-bold text-slate-400">Định nghĩa Tiếng Anh:</span>
+                                        <p className="mt-1 leading-relaxed">{selectedTermDetail.definition}</p>
+                                    </div>
+                                    <div>
+                                        <span className="font-bold text-slate-400">Giải thích chi tiết:</span>
+                                        <p className="mt-1 leading-relaxed text-slate-300">{selectedTermDetail.explanation}</p>
+                                    </div>
+                                    <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 italic">
+                                        "{selectedTermDetail.example}"
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-3 pt-2">
+                                    <button
+                                        onClick={() => speakEnglish(selectedTermDetail.term)}
+                                        className="flex-1 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 font-bold text-xs transition-all flex items-center justify-center gap-2 border border-cyan-500/40"
+                                    >
+                                        <i className="fa-solid fa-volume-high"></i> Đọc Phát Âm
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            toggleLearned(selectedTermDetail.id);
+                                            setSelectedTermDetail(null);
+                                        }}
+                                        className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-all"
+                                    >
+                                        {learnedIds.includes(selectedTermDetail.id) ? 'Bỏ Đánh Dấu' : 'Đánh Dấu Đã Thuộc'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function ProgressModule({ stats, learnedIds, resetProgress }) {
+            const totalVocab = VOCABULARY_DATA.length;
+            const completionRate = Math.round((learnedIds.length / totalVocab) * 100);
+
+            // Per book mastery
+            const b1Learned = VOCABULARY_DATA.filter(v => v.book === 1 && learnedIds.includes(v.id)).length;
+            const b1Total = VOCABULARY_DATA.filter(v => v.book === 1).length;
+
+            const b2Learned = VOCABULARY_DATA.filter(v => v.book === 2 && learnedIds.includes(v.id)).length;
+            const b2Total = VOCABULARY_DATA.filter(v => v.book === 2).length;
+
+            const b3Learned = VOCABULARY_DATA.filter(v => v.book === 3 && learnedIds.includes(v.id)).length;
+            const b3Total = VOCABULARY_DATA.filter(v => v.book === 3).length;
+
+            return (
+                <div className="space-y-6">
+                    {/* Mastery Overview Header */}
+                    <div className="glass-panel rounded-3xl p-6 md:p-8 border border-slate-800 space-y-6">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div>
+                                <h2 className="text-2xl font-extrabold text-white">Tổng Quan Tiến Độ Học Tập</h2>
+                                <p className="text-xs text-slate-400 mt-1">Dữ liệu được lưu trữ tự động trên thiết bị của bạn</p>
+                            </div>
+
+                            <div className="text-center md:text-right">
+                                <div className="text-4xl font-black text-cyan-400">{completionRate}%</div>
+                                <div className="text-xs text-slate-400">Hoàn thành toàn bộ sách</div>
+                            </div>
+                        </div>
+
+                        {/* Global Bar */}
+                        <div className="w-full bg-slate-900 rounded-full h-4 overflow-hidden p-0.5 border border-slate-800">
+                            <div
+                                className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 h-full rounded-full transition-all duration-1000"
+                                style={{ width: `${completionRate}%` }}
+                            ></div>
+                        </div>
+                    </div>
+
+                    {/* Book Breakdown Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {[
+                            { name: 'Book 1: Basics', learned: b1Learned, total: b1Total, color: 'from-blue-500 to-cyan-500' },
+                            { name: 'Book 2: Intermediate', learned: b2Learned, total: b2Total, color: 'from-purple-500 to-indigo-500' },
+                            { name: 'Book 3: Advanced', learned: b3Learned, total: b3Total, color: 'from-emerald-500 to-teal-500' }
+                        ].map((b, idx) => {
+                            const pct = Math.round((b.learned / b.total) * 100) || 0;
+                            return (
+                                <div key={idx} className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-3">
+                                    <div className="flex items-center justify-between text-xs font-bold text-slate-200">
+                                        <span>{b.name}</span>
+                                        <span className="text-cyan-400">{pct}%</span>
+                                    </div>
+
+                                    <div className="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                                        <div
+                                            className={`bg-gradient-to-r ${b.color} h-full transition-all duration-700`}
+                                            style={{ width: `${pct}%` }}
+                                        ></div>
+                                    </div>
+
+                                    <div className="text-[11px] text-slate-400 flex justify-between">
+                                        <span>Đã thuộc:</span>
+                                        <span className="font-bold text-slate-200">{b.learned} / {b.total} từ</span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Danger Zone / Reset */}
+                    <div className="glass-panel rounded-2xl p-4 border border-rose-900/30 bg-rose-950/10 flex items-center justify-between text-xs">
+                        <div className="text-slate-400">
+                            <span className="font-semibold text-rose-400">Đặt lại tiến độ: </span>
+                            Xóa toàn bộ từ vựng đã thuộc và điểm kiểm tra để học lại từ đầu.
+                        </div>
+                        <button
+                            onClick={resetProgress}
+                            className="px-4 py-2 rounded-xl bg-rose-900/40 hover:bg-rose-800 text-rose-200 font-bold transition-all border border-rose-700/50"
+                        >
+                            Reset Tiến Độ
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            const [currentTab, setCurrentTab] = React.useState('flashcard');
+            const [selectedBook, setSelectedBook] = React.useState('all');
+            const [selectedUnit, setSelectedUnit] = React.useState('all');
+
+            // Persistent LocalStorage State
+            const [learnedIds, setLearnedIds] = React.useLocalStorage ? React.useLocalStorage('ce_learned_ids', []) : React.useState(() => {
+                try {
+                    const item = window.localStorage.getItem('ce_learned_ids');
+                    return item ? JSON.parse(item) : [];
+                } catch {
+                    return [];
+                }
+            });
+
+            const [highScore, setHighScore] = React.useState(() => {
+                try {
+                    return Number(window.localStorage.getItem('ce_high_score')) || 0;
+                } catch {
+                    return 0;
+                }
+            });
+
+            const [streak, setStreak] = React.useState(() => {
+                try {
+                    return Number(window.localStorage.getItem('ce_streak_count')) || 1;
+                } catch {
+                    return 1;
+                }
+            });
+
+            // Save learned IDs
+            React.useEffect(() => {
+                try {
+                    window.localStorage.setItem('ce_learned_ids', JSON.stringify(learnedIds));
+                } catch (e) {
+                    console.error(e);
+                }
+            }, [learnedIds]);
+
+            const toggleLearned = (id) => {
+                setLearnedIds(prev => 
+                    prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+                );
+            };
+
+            const recordQuizScore = (scorePct) => {
+                if (scorePct > highScore) {
+                    setHighScore(scorePct);
+                    try {
+                        window.localStorage.setItem('ce_high_score', scorePct.toString());
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            };
+
+            const resetProgress = () => {
+                if (window.confirm ? window.confirm('Bạn có chắc chắn muốn đặt lại tất cả tiến độ học?') : true) {
+                    setLearnedIds([]);
+                    setHighScore(0);
+                    window.localStorage.removeItem('ce_learned_ids');
+                    window.localStorage.removeItem('ce_high_score');
+                }
+            };
+
+            // Filter vocabulary data according to sidebar selections
+            const filteredVocabulary = React.useMemo(() => {
+                return VOCABULARY_DATA.filter(item => {
+                    const matchesBook = selectedBook === 'all' || item.book === selectedBook;
+                    const matchesUnit = selectedUnit === 'all' || item.unit === selectedUnit;
+                    return matchesBook && matchesUnit;
+                });
+            }, [selectedBook, selectedUnit]);
+
+            return (
+                <div className="min-h-screen flex flex-col justify-between">
+                    <div>
+                        <Header 
+                            currentTab={currentTab} 
+                            setCurrentTab={setCurrentTab} 
+                            stats={{ streak, learnedCount: learnedIds.length, highScore }}
+                            resetProgress={resetProgress}
+                        />
+
+                        <main className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
+                            <div className="flex flex-col lg:flex-row gap-6">
+                                <SidebarFilter 
+                                    selectedBook={selectedBook} 
+                                    setSelectedBook={setSelectedBook}
+                                    selectedUnit={selectedUnit}
+                                    setSelectedUnit={setSelectedUnit}
+                                    learnedIds={learnedIds}
+                                />
+
+                                <section className="flex-1 min-w-0">
+                                    {currentTab === 'flashcard' && (
+                                        <FlashcardsModule 
+                                            vocabulary={filteredVocabulary} 
+                                            learnedIds={learnedIds} 
+                                            toggleLearned={toggleLearned}
+                                        />
+                                    )}
+
+                                    {currentTab === 'quiz' && (
+                                        <QuizModule 
+                                            vocabulary={filteredVocabulary}
+                                            recordQuizScore={recordQuizScore}
+                                        />
+                                    )}
+
+                                    {currentTab === 'reader' && (
+                                        <ReadingModule 
+                                            selectedBook={selectedBook}
+                                            selectedUnit={selectedUnit}
+                                        />
+                                    )}
+
+                                    {currentTab === 'glossary' && (
+                                        <GlossaryModule 
+                                            learnedIds={learnedIds}
+                                            toggleLearned={toggleLearned}
+                                        />
+                                    )}
+
+                                    {currentTab === 'progress' && (
+                                        <ProgressModule 
+                                            stats={{ streak, learnedCount: learnedIds.length, highScore }}
+                                            learnedIds={learnedIds}
+                                            resetProgress={resetProgress}
+                                        />
+                                    )}
+                                </section>
+                            </div>
+                        </main>
+                    </div>
+
+                    <footer className="glass-panel border-t border-slate-800 text-center py-4 text-xs text-slate-500">
+                        Career Paths: Computer Engineering Study Hub • Thiết kế cho Sinh viên & Kỹ sư Khoa học Máy tính
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
